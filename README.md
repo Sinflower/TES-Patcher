@@ -1,7 +1,5 @@
 ## TES Patcher ##
 
-A simple tool written in ruby, to patch TES encoded RPG Maker VX ACE files.
-
 ### Usage Guide ###
 1. Extract the game data e.g. by using RPG Maker All Decrypter (please refer to one of the  
 many guides on how to apply RPG Maker patches for a more detailed explanation e.g. [here](http://www.ulmf.org/bbs/showthread.php?t=28259)).
@@ -11,9 +9,9 @@ see picture below).
 ![](http://i.imgur.com/QnLAtI7.png)
 3. Open a command line in the folder and run:  
 `TES_Patcher -e`  
-This will extract the encrypted dialogs and save them into several different text files inside the folder "extract_main".  
-The used patching file format is similar to the one from RPGMakerTrans e.g. just insert your translation in the blank  
-section between `> VALUE ID:` and `> END STRING` and as with RPGMakerTrans don't touch any of the other stuff, it  
+This will extract the encrypted dialogs and save them into several different text files inside the folder "*extract_main*".  
+The used patching file format is similar to the one from RPGMakerTrans e.g. write the translation in the blank  
+section between `> VALUE ID:` and `> END STRING` and as with RPGMakerTrans do not touch any of the other stuff, it  
 might break something during the patching process.
 
 4. Once the translation is done run:  
@@ -28,9 +26,10 @@ In case the main.rvdata2 is not inside the data folder the `-m` switch can be us
 In the example picture above main is located inside *Arc* therefore the TES Patcher has to be called with `-m Arc`.
 
 #### Important information ####
-The extraction is not incremental, every rerun will override existing files therefore it is recommended to backup existing  
-work before rerunning the extraction.
-
+The extraction is not incremental nor will a rerun override existing files, therefore it is necessary to move existing  
+work to a different directory or set a different output directory before rerunning the extraction.  
+In case no translation is provided for an entry, the text will be set to the *original* string, (the text after `> BEGIN STRING`)  
+this should be kept in mind when working with multiple translation folders.
 
 ----------
 
@@ -102,8 +101,8 @@ The *EventCode* is the required event code for this kind of text.
 Extract the default event texts while *main.rvdata2* is located inside the data folder:  
 `TES_Patcher -e`
 
-Extract the default event texts while *main.rvdata2* is located inside the folder *Arc*:  
-`TES_Patcher -m Arc -e`
+Extract the default event texts to the folder *extract_2* while *main.rvdata2* is located inside the folder *Arc*:  
+`TES_Patcher -m Arc -e extract_2`
 
 Extract the default events as well as the events reflesh_history and npch_end while *main.rvdata2* is located inside the data folder:  
 `TES_Patcher -e -a reflesh_history,npch_end`
@@ -111,7 +110,7 @@ Extract the default events as well as the events reflesh_history and npch_end wh
 Patch *main.rvdata2* while it is located inside the data folder:  
 `TES_Patcher -p`
 
-Patch *main.rvdata2* while it is located inside the folder *Arc*:  
-`TES_Patcher -m Arc -p`
+Patch with the patch data located inside *extract_2*, while *main.rvdata2* is located inside the folder *Arc*:  
+`TES_Patcher -m Arc -p extract_2`
 
 **Note:** The patching process does not care about the event codes, it just patches everything it can find so `-a` is not required.
