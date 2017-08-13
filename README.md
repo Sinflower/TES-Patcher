@@ -3,7 +3,7 @@
 A simple tool written in ruby, to patch TES encoded RPG Maker VX ACE files.
 
 ### Usage Guide ###
-1. Extract the game data e.g. by using RPG Maker All Decrypter (please refere to one of the  
+1. Extract the game data e.g. by using RPG Maker All Decrypter (please refer to one of the  
 many guides on how to apply RPG Maker patches for a more detailed explanation e.g. [here](http://www.ulmf.org/bbs/showthread.php?t=28259)).
 
 2. Copy TES_Patcher.exe into the game base directory (the directory containing Game.exe and the Data folder;  
