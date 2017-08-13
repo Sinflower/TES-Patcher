@@ -24,7 +24,7 @@ ARGV << '-h' if ARGV.empty?
 
 $options = {:dumpMain => false, :extract => false, :patch => false, :TrainZ => false,
 						:update_inject => false, :maxLength => 50, :eventCodes => nil, :dataDir => nil,
-						:extractDir => nil, :patchDir => nil}
+						:extractDir => nil, :patchDir => nil, :printEvtCodes => false}
 
 ARCH_32 = '32-Bit'
 ARCH_64 = '64-Bit'
@@ -611,8 +611,8 @@ EOF
 
 	opts.separator ""
 
-	opts.on('-p', '--patch [dir]', 'Patches main.rvdata2 using the files from', '"dir". If "dir" is not set the defaul', 'input dir is "extract_main".',
-	        'The patched file will be stored in the', 'current directory as:', 'main_patched.rvdata2') do | dir |
+	opts.on('-p', '--patch [dir]', 'Patches main.rvdata2 using the files from', '"dir". If "dir" is not set the default', 'input dir is "extract_main".',
+	        'The patched file will be stored in the', 'current directory as:', 'main.rvdata2') do | dir |
 		$options[:patch] = true
 		$options[:patchDir] = dir
 	end
@@ -656,13 +656,13 @@ EOF
 	opts.separator ""
 
 	opts.on('-D', '--dump_main', 'Create a full dump of main.rvdata2.') do
-		TesPatcher::dumpMain
+		$options[:dumpMain] = true
 	end
 
 	opts.separator ""
 
 	opts.on('-c', '--event_codes', 'Prints a list of all event codes used', 'inside main.rvdata2.') do
-		TesPatcher::printEventCodes
+		$options[:printEvtCodes] = true
 	end
 
 	opts.separator ""
@@ -681,6 +681,12 @@ if $options[:extract]
 end
 if $options[:patch]
 	TesPatcher::patch
+end
+if $options[:dumpMain]
+	TesPatcher::dumpMain
+end
+if $options[:printEvtCodes]
+	TesPatcher::printEventCodes
 end
 if $options[:TrainZ]
 	TesPatcher::trainZ
