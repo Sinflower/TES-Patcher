@@ -147,7 +147,13 @@ module TesPatcher
 
 		if File.exist?(@main_full)
 			print "Decoding #{@main_full} ... "
+
+			# Supress warning messages for ruby >= 2.4.0 due to deprecated code inside the TES code. (https://stackoverflow.com/a/9236504)
+			original_verbose, $VERBOSE = $VERBOSE, nil
 			events = TesManager::load_tes(data_dir ? data_dir : DATA_DIR, MAIN_NAME)
+			# Activate warning messages again.
+			$VERBOSE = original_verbose
+
 			puts "done"
 			return events
 		else
@@ -208,6 +214,9 @@ module TesPatcher
 		script = decodeScriptCode(c)
 		# This line has to be removed in order for the other encryption process to work
 		script.gsub!("@@gle = Win32API.new('kernel32','GetLastError','v','l').freeze") { "\#@@gle = Win32API.new('kernel32','GetLastError','v','l').freeze" }
+		# For some reason ruby >= 2.4.0 won't work without a full path to the dll to load
+		# TODO: Modify this for cases where the patcher is not in the game base dir 
+		script.gsub!("\"wfcrypt\"") { "\"\#{Dir.pwd}/wfcrypt\"" }
 		return script
 	end
 	
