@@ -8,6 +8,8 @@
 #  Font.default_size = 22
 #  Font.default_bold = true
 
+require_relative 'color'
+
 class Font
   @@cache = {}
   # Creates a Font object.

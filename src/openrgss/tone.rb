@@ -92,4 +92,13 @@ class Tone
   def self._load(data) # :nodoc:
     new(*data.unpack('E4'))
   end
+
+	def ==(obj)
+		return false unless obj
+		return false unless @red == obj.red
+		return false unless @green == obj.green
+		return false unless @blue == obj.blue
+		return false unless @gray == obj.gray
+		return true
+	end
 end

@@ -48,4 +48,11 @@ class Table
   def _dump(d = 0) #:nodoc:
     [@size, @xsize, @ysize, @zsize, @xsize*@ysize*@zsize, *@data].pack('LLLLLS*')
   end
+
+	def ==(obj)
+		return false unless @xsize == obj.xsize
+		return false unless @ysize == obj.ysize
+		return false unless @zsize == obj.zsize
+		return true
+	end
 end

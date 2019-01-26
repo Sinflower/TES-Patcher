@@ -2,17 +2,7 @@ require 'zlib'
 require 'optparse'
 require 'win32api'
 
-## credits to https://github.com/zh99998/OpenRGSS/blob/master/lib/openrgss/
-require_relative 'openrgss/audio'
-require_relative 'openrgss/color'
-require_relative 'openrgss/font'
-require_relative 'openrgss/plane'
-require_relative 'openrgss/rect'
-require_relative 'openrgss/table'
-require_relative 'openrgss/tilemap'
-require_relative 'openrgss/tone'
-require_relative 'openrgss/viewport'
-
+## credits to https://github.com/zh99998/OpenRGSS/blob/master/lib/openrgss
 require_relative 'openrgss/rpg'
 require_relative 'openrgss/eventcodes'
 
@@ -273,6 +263,7 @@ module TesPatcher
 				if line == "> BEGIN STRING"
 					b = true
 					o = ""
+					s = ""
 					next
 				end
 
@@ -284,9 +275,13 @@ module TesPatcher
 					s.chomp!
 					o.chomp!
 
-					if(p != -1)
-						if s == ""
-							events[key][i].parameters[p] = o
+					if p != -1
+						s = o if s.empty?
+
+						next unless (events[key][i].parameters[p].class == String || events[key][i].parameters[p].class == Array)
+
+						if events[key][i].parameters[p].class == Array
+							events[key][i].parameters[p] = s.split("\n")
 						else
 							events[key][i].parameters[p] = s
 						end
@@ -378,11 +373,13 @@ module TesPatcher
 				codes.each do | code |
 					# Skip the lines just containung the choice end string
 					if value[i].code == EVC_CHOICE
-						next unless value[i].parameters[0] != "</choice>"
+						next if value[i].parameters[0] == "</choice>"
 					end
 
 					if value[i].code.to_s == code.to_s
 						value[i].parameters.size.times do | j |
+							next unless (value[i].parameters[j].class == String || value[i].parameters[j].class == Array)
+							next if value[i].parameters[j].empty?
 							out.puts ''
 							out.puts '> BEGIN STRING'
 							out.puts value[i].parameters[j]
@@ -468,6 +465,8 @@ module TesPatcher
 				end
 				out.puts ''
 			end
+			
+			out.close
 		end
 
 		puts "done."

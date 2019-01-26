@@ -1,68 +1,40 @@
+require_relative 'table'
+require_relative 'audio'
+require_relative 'color'
+require_relative 'font'
+require_relative 'plane'
+require_relative 'rect'
+require_relative 'tilemap'
+require_relative 'tone'
+require_relative 'viewport'
 
-### Simple RPG class structure to enable object loading
 class RPG
 end
 
-class RPG::EventCommand
-	def initialize(code = 0, indent = 0, parameters = [])
-		@code = code
-		@indent = indent
-		@parameters = parameters
-	end
+require_relative 'rpg/actor.rb'
+require_relative 'rpg/animation.rb'
+require_relative 'rpg/armor.rb'
+require_relative 'rpg/audioFile.rb'
+require_relative 'rpg/baseItem.rb'
+require_relative 'rpg/class.rb'
+require_relative 'rpg/commonEvent.rb'
+require_relative 'rpg/enemy.rb'
+require_relative 'rpg/equipItem.rb'
+require_relative 'rpg/event.rb'
+require_relative 'rpg/eventCommand.rb'
+require_relative 'rpg/item.rb'
+require_relative 'rpg/map.rb'
+require_relative 'rpg/mapInfo.rb'
+require_relative 'rpg/moveCommand.rb'
+require_relative 'rpg/moveRoute.rb'
+require_relative 'rpg/skill.rb'
+require_relative 'rpg/state.rb'
+require_relative 'rpg/system.rb'
+require_relative 'rpg/tileset.rb'
+require_relative 'rpg/troop.rb'
+require_relative 'rpg/usableItem.rb'
+require_relative 'rpg/weapon.rb'
 
-	attr_accessor :code
-	attr_accessor :indent
-	attr_accessor :parameters
-end
-
-class RPG::AudioFile
-	def initialize(name = '', volume = 100, pitch = 100)
-		@name = name
-		@volume = volume
-		@pitch = pitch
-	end
-
-	attr_accessor :name
-	attr_accessor :volume
-	attr_accessor :pitch
-end
-
-class RPG::SE < RPG::AudioFile
-end
-
-class RPG::BGM < RPG::AudioFile
-end
-
-class RPG::BGS < RPG::AudioFile
-end
-
-class RPG::ME < RPG::AudioFile
-end
-
-class RPG::MoveRoute
-	def initialize
-		@repeat = true
-		@skippable = false
-		@wait = false
-		@list = [RPG::MoveCommand.new]
-	end
-
-	attr_accessor :repeat
-	attr_accessor :skippable
-	attr_accessor :wait
-	attr_accessor :list
-end
-
-
-class RPG::MoveCommand
-	def initialize(code = 0, parameters = [])
-		@code = code
-		@parameters = parameters
-	end
-
-	attr_accessor :code
-	attr_accessor :parameters
-end
 
 module FinalClass
 end
