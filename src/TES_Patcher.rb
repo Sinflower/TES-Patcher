@@ -91,7 +91,7 @@ module TesPatcher
 	EXTRACT_SCRIPT_NAME << Extract_Script.new("Game_Interpreter", "Game Interpreter")
 	EXTRACT_SCRIPT_NAME << Extract_Script.new("Scene_Base", "Scene Base")
 	EXTRACT_SCRIPT_NAME << Extract_Script.new("テキスト→シナリオ変換", "Old-TES Stuff", false)
-	EXTRACT_SCRIPT_NAME << Extract_Script.new(["ＴＥＳ本体", "TES本体", "TES基本モジュール"], "TES")
+	EXTRACT_SCRIPT_NAME << Extract_Script.new(["ＴＥＳ本体", "TES本体", "TES基本モジュール", "tes_base"], "TES")
 	# Optional script only required when the TES uses the WF_COMP_MODE
 	EXTRACT_SCRIPT_NAME << Extract_Script.new("セーブデータ圧縮暗号化スクリプト", "Comp-SaveData", false, ARCH_32)
 
